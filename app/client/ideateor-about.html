@@ -1,0 +1,59 @@
+<template name="about">
+	<div id="about">
+		<div id="about_title">
+			About !deateor
+		</div>
+		
+		<div id="about_content">
+			<h2>What is it?</h2>
+			!deateor, pronounced "aye"-"dee"-"ate"-"or", is an application for <a href="http://en.wikipedia.org/wiki/Ideation_%28idea_generation%29">ideation</a>.
+			
+			<h2>How does it work?</h2>
+			{{> about_how_it_works }}
+			
+			<h2>What is it really?</h2>
+			!deateor is an experiment with <a href="http://meteor.com">Meteor, a set of new technologies for building top-quality web apps.</a>
+			
+			<h2>What it isn't.</h2>
+			
+			<ul>
+			<li>!deateor isn't a tool to solve problems with known solutions, or to ask questions.
+			So, <a href="http://ideateor.net">ideateor.net</a> isn't <a href="http://stackoverflow.com">stackoverflow.com</a>.</li>
+			<li>!deateor isn't a project management tool.</li>	 
+			<li>!deator isn't a silver bullet.</li>
+			<li>Working... yet :-)</li>
+			</ul>
+			
+			<h2>Why?</h2>
+			!deateor was an idea for a Meteor app, when asked, "What app should we make with Meteor?"
+			
+			<h2>Where should I use it?</h2>
+			!deateor was developed on Firefox using OSX.  You will probably get the best results with this setup.
+			Safari was also tested.  Chrome and Internet Explorer may or may not look as nice.
+			You must have JavaScript enabled on your browser to use !deateor.  (If you don't, there is a good chance you won't be able to even read this message.)
+			
+			<h2>Who made it?</h2>
+			!deateor was written by Joshua Petitt
+			
+			<h2>Can I use it?</h2>
+			Ideateor is licensed under MIT license.
+			
+			{{> license }}
+			
+		</div>
+	</div>
+</template>
+
+
+<template name="about_how_it_works">
+	<div>
+		!deateor is simple, here's how it works:
+		
+		<ul>
+		<li> You pose a "problem".
+		<li> Problem solvers provide "ideas", which are potential solutions to your problem.
+		<li> Each "idea" has pros and cons.
+		<li> You get to decide the problem solution.
+		</ul>
+	</div>
+</template>

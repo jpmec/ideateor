@@ -1,0 +1,106 @@
+/*
+Copyright (c) 2012 Joshua Petitt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+*/
+
+
+
+
+/******** Global UI definitions ********/
+
+@font-scheme-family: fantasy;
+
+@color-scheme-background: #FFFFFF;
+@color-scheme-foreground: #F8F8F8;
+@color-scheme-foreground-border: #000000;
+@color-scheme-highlight: #EEEEEE;
+@color-scheme-text: #000000;
+@color-scheme-text-highlight: #000000;
+@color-scheme-text-error: #FF0000;
+
+@color-scheme-control-background: #EEEEEE;
+@color-scheme-control-foreground: #E8E8E8;
+@color-scheme-control-hover: #E0E0E0;
+@color-scheme-control-text: #0000FF;
+@color-scheme-control-border: #0000FF;
+
+@color-scheme-dialog-background: #EEEEEE;
+@color-scheme-dialog-text: #404040;
+@color-scheme-dialog-border: #00FF00;
+
+
+
+
+/******** Global UI styles ********/
+
+
+.ui-rounded-corners(@radius: 1em) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+
+.ui-click-text {
+	text-decoration: underline;
+	color: @color-scheme-control-text;
+}
+
+
+
+
+/******** Block specific formatting ********/
+
+body {
+	font-family: @font-scheme-family;
+	background: @color-scheme-background;
+}
+
+
+#header {
+	font-size: 420%;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+#about {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+
+#about_title {
+    text-align: center;
+	.ui-click-text;
+}
+
+
+#about_content {
+    background-color: @color-scheme-dialog-background;
+	color: @color-scheme-dialog-text;
+	border-color: @color-scheme-dialog-border;
+    margin: 1em;
+    padding: 1em;
+    display: none;
+    .ui-rounded-corners;
+}
+
+
+#license_content {
+    font-size: xx-small;
+    border-style: double;
+    padding: 1em;
+}
+
