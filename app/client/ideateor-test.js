@@ -15,56 +15,11 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-// Session ////////////////////////////////////////////////////////////////////
 
-Session.set('test', false); // don't test by default
-
-
-if (Meteor.is_client) {
-
-}
-
-
-// Templates ////////////////////////////////////////////////////////////////////
-
-
-Template.body_content.test = function () {
-	return Session.get('test');
-}
-
-
-Template.about.events = {
-	'click #about_title': function () {
-		$('#about_content').slideToggle();
-	}
-};
-
-
-// Models ////////////////////////////////////////////////////////////////////
-
-
-
-
-
-// Router ////////////////////////////////////////////////////////////////////
-
-
-var IdeateorRouter = Backbone.Router.extend({
-	routes: {
-		"test/": "urlTest"
-	},
-	
-	urlTest: function() {
-		Session.set('test', true);
-	}
-	
+test("a basic test example", function() {
+  ok( true, "this test is fine" );
+  var value = "hello";
+  equal( value, "hello", "We expect value to be hello" );
 });
 
-
-Router = new IdeateorRouter;
-
-
-Meteor.startup(function () {
-	Backbone.history.start({pushState: true});	
-});
 

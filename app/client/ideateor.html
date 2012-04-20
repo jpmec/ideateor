@@ -2,19 +2,29 @@
 	<title>!deateor</title>
 </head>
 
+
 <body>
-	{{> header }}
 	{{> body_content }}
 </body>
+
+
+<template name="body_content">
+
+	{{#if test }}
+		
+		{{> qunit }}
+	
+	{{else }}
+		{{> header }}
+		{{> about }}
+
+	{{/if}}
+
+</template>
 
 
 <template name="header">
 	<div id="header">
 		!deateor
 	</div>
-</template>
-
-
-<template name="body_content">
-	{{> about }}
 </template>
