@@ -1,0 +1,50 @@
+
+<template name="login">
+	<div id="login_block">
+		<div class="login_content">
+		{{> sign_in }}
+		or
+		{{> sign_up }}
+		</div>
+	</div>
+</template>
+
+
+<template name="sign_in">
+	<div id="sign_in">
+		<div id="sign_in_form">
+			<div><input type="text" id="signin_username_input" class="login-input" placeholder="user name" /></div>
+			<div><input type="password" id="signin_password_input" class="login-input" placeholder="password" /></div>		
+			<div id="sign_in_error">
+				(?) The user name and password were not found.<br>
+				(!) Sign up to create a new account.
+			</div>
+		</div>
+		<div class="login_input_button">
+			<input type="submit" id="sign_in_button" value="Sign In" />
+		</div>
+	</div>
+</template>
+
+
+<template name="sign_up">
+	<div id="sign_up">
+		<div id="sign_up_text">
+			Sign Up
+		</div>
+		<div id="sign_up_form" style="display:none">
+			<div><input type="text" id="signup_username_input" class="login-input" placeholder="user name" /></div>
+			<div><input type="password" id="signup-password-input" class="login-input" placeholder="password" /></div>	
+			<div class="login_input_button">
+				<input type="submit" id="sign_up_continue_button" value="Continue" />
+			</div>
+			<div class="sign_up_help">
+				<p><b>Welcome to !deateor,<br/> a tool for discovering new ideas!</b></p>
+				<p>Type a user name and password and click 'Continue'.</p>
+				<p>Don't worry, !deateor is free to use,<br>
+				and we don't sell your information.</p>
+				<p>Learn more about !deateor<br>by clicking on 'About !deateor' below.</p>
+			</div>
+		</div>
+	</div>
+</template>

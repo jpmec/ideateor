@@ -39,10 +39,12 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @color-scheme-dialog-text: #404040;
 @color-scheme-dialog-border: #00FF00;
 
+@color-scheme-shadow: #444444;
+@shadow-scheme-x: 2px;
+@shadow-scheme-y: 2px;
+@shadow-scheme-width: 2px;
 
-
-
-/******** Global UI styles ********/
+/* Global UI styles ***********************************************************/
 
 
 .ui-rounded-corners(@radius: 1em) {
@@ -58,9 +60,39 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
 
+.ui-input-submit {
+	text-align: center;
+	vertical-align: middle;
+	font-family: @font-scheme-family;
+	font-size: x-large;
+	font-weight: normal;
+	color: @color-scheme-control-text;
+	background-color: @color-scheme-control-foreground;
+	border: 2px;
+	border-style: solid;
+	border-color: @color-scheme-control-border;
+	-webkit-appearance: none;
+	.ui-rounded-corners(0.25em);
+	.ui-shadow;
+	
+	&:hover {
+		background-color: @color-scheme-control-hover;		
+	}
+}
 
 
-/******** Block specific formatting ********/
+.ui-shadow(@x: @shadow-scheme-x, @y: @shadow-scheme-y, @w: @shadow-scheme-width, @c: @color-scheme-shadow) {
+	-moz-box-shadow: @x @y @w @c;
+	-webkit-box-shadow: @x @y @w @c;
+	box-shadow: @x @y @w @c;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/* Block specific formatting **************************************************/
 
 body {
 	font-family: @font-scheme-family;
@@ -103,4 +135,61 @@ body {
     border-style: double;
     padding: 1em;
 }
+
+
+/* Login formatting **************************************************/
+
+#login_block {
+	display: none;
+	margin: 1em;
+}
+
+
+.login_content {
+	display: table;
+	font-size: xx-large;
+	text-align: center;
+	margin: auto;
+	padding: 1em;	
+	background-color: @color-scheme-foreground;
+	border-style: solid;
+	.ui-rounded-corners;
+	.ui-shadow;
+}
+
+
+.login-input {
+	font-family: @font-scheme-family;
+	font-size: x-large;
+	margin: 0.5em;
+}
+
+
+#sign_in_error {
+	font-size: medium;
+	color: @color-scheme-text-error;
+	display: none;
+}
+
+
+#sign_in_button {
+	.ui-input-submit;
+}
+
+
+#sign_up_continue_button {
+	.ui-input-submit;
+}
+
+
+.sign_up_help {
+	font-size: medium;
+}
+
+
+#sign_up_text {
+	.ui-click-text;
+}
+
+
 

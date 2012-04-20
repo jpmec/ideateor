@@ -15,65 +15,28 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-// Session ////////////////////////////////////////////////////////////////////
-
-Session.set('test', false); // don't test by default
 
 
-if (Meteor.is_client) {
-
-}
-
-
-// Templates ////////////////////////////////////////////////////////////////////
-
-
-Template.body_content.test = function () {
-	return Session.get('test');
-}
-
-
-Template.about.events = {
-	'click #about_title': function () {
-		$('#about_content').slideToggle();
+Template.sign_in.events = {
+	'click #sign_in_button' : function () {
+		if ($('#sign_in_form').css('display') == 'none') {
+			$('#sign_in_form').slideDown(); 
+			$('#sign_up_form').slideUp();}
+		else {
+			//usersModel.signinUser($('#signin-username-input').val(), $('#signin-password-input').val());
+		}
 	}
 };
 
 
-// Models ////////////////////////////////////////////////////////////////////
-
-
-
-
-
-// Router ////////////////////////////////////////////////////////////////////
-
-
-var IdeateorRouter = Backbone.Router.extend({
-	routes: {
-		"": "gotoLogin",
-		"login/": "urlLogin",
-		"test/": "urlTest"
+Template.sign_up.events = {
+	'click #sign_up_text' : function () {
+		$('#sign_in_form').slideUp(); 
+		$('#sign_in_error').fadeOut();
+		$('#sign_up_form').slideDown();		
 	},
 	
-	urlTest: function () {
-		Session.set('test', true);
-	},
-	
-	gotoLogin: function () {
-		this.navigate('login/', true);
-	},
-	
-	urlLogin: function () {
-		$('#login_block').slideDown();
+	'click #sign_up_continue_button' : function () {
+		//usersModel.createUser( $('#signup-username-input').val(), $('#signup-password-input').val() );
 	}
-});
-
-
-Router = new IdeateorRouter;
-
-
-Meteor.startup(function () {
-	Backbone.history.start({pushState: true});	
-});
-
+};

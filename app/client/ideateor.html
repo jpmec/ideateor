@@ -16,6 +16,13 @@
 	
 	{{else }}
 		{{> header }}
+
+		{{#if user_id }}
+		
+		{{else}}
+			{{> login }}
+		{{/if }}		
+		
 		{{> about }}
 
 	{{/if}}
