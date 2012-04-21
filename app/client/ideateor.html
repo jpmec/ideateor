@@ -15,16 +15,18 @@
 		{{> qunit }}
 	
 	{{else }}
-		{{> header }}
 
-		{{#if user_id }}
+			{{#unless user_id }}		
+				{{> header }}
+				{{> login }}
+			{{/unless }}
+			
+			{{#if user_id }}
+				{{> user_widget }}
+				{{> user_header }}
+			{{/if}}
 		
-		{{else}}
-			{{> login }}
-		{{/if }}		
-		
-		{{> about }}
-
+			{{> about }}
 	{{/if}}
 
 </template>
@@ -32,6 +34,42 @@
 
 <template name="header">
 	<div id="header">
-		!deateor
+		<span id="header_title_bang">!</span><span id="header_title_ideateor">!deateor</span>
+	</div>
+</template>
+
+
+<template name="user_header">
+	<div id="user_header">
+		<span id="header_title_ideateor">!deateor</span>
+	</div>
+</template>
+
+
+
+
+<template name="user_widget">
+	{{#if user_id}}
+		<div id="user_widget">
+		{{> user_controls }}
+		<div>{{user_name}}, got a problem?</div>
+		</div>
+	{{/if}}
+</template>
+
+
+<template name="user_info">
+	<div id="user_info">
+	<div>{{username}}</div>
+	<div>Joined on {{created}}</div>
+	</div>
+</template>
+
+
+<template name="user_controls">
+	<div id="user_controls">
+		<div id="user_control_delete_user">Delete account</div>
+        <div id="user_control_logout"><a href=''>Log out</a></div>
+        <div id="user_control_home">Home</div>
 	</div>
 </template>

@@ -27,6 +27,18 @@
 			<h2>Why?</h2>
 			!deateor was an idea for a Meteor app, when asked, "What app should we make with Meteor?"
 			
+			<h2>Is it safe?</h2>
+			<em>NO!</em>
+			!deateor is not safe.  You should expect your information to be read/changed/deleted by a third party at any time.  !deator provides some secure-ish features, such as:
+			<ul>
+				<li>Your clear text pass phrase is hashed using SHA-256 and saved, then the clear text pass phrase is then deleted.  Your human-readable pass phrase is only available for a short time, the hashed session password is available to the client throughout the session.</li>
+				<li>Your user name and hashed pass phrase are hashed using SHA-256 then sent to the server.  The server "knows you" as your hashed user name and pass phrase. This is just obstufication of the database values and does not provide any security.</li>
+			</ul>
+			What is unsafe about !deateor:
+			<ul>
+				<li>Your user id is sent in clear text between client and server.</li>
+			</ul>
+			
 			<h2>Where should I use it?</h2>
 			!deateor was developed on Firefox using OSX.  You will probably get the best results with this setup.
 			Safari was also tested.  Chrome and Internet Explorer may or may not look as nice.

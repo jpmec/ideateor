@@ -15,11 +15,16 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
+module("UsersModel")
 
-test("a basic test example", function() {
-  ok( true, "this test is fine" );
-  var value = "hello";
-  equal( value, "hello", "We expect value to be hello" );
+test("createUser", function() {
+
+//    var usersModel = new UsersModel;
+
+//	var user = usersModel.createUser();
+	
+//	notEqual(null, user);
+
 });
 
 

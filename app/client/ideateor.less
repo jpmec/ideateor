@@ -31,7 +31,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 @color-scheme-control-background: #EEEEEE;
 @color-scheme-control-foreground: #E8E8E8;
-@color-scheme-control-hover: #E0E0E0;
+@color-scheme-control-hover: #D0D0D0;
 @color-scheme-control-text: #0000FF;
 @color-scheme-control-border: #0000FF;
 
@@ -39,10 +39,10 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @color-scheme-dialog-text: #404040;
 @color-scheme-dialog-border: #00FF00;
 
-@color-scheme-shadow: #444444;
 @shadow-scheme-x: 2px;
 @shadow-scheme-y: 2px;
-@shadow-scheme-width: 2px;
+@shadow-scheme-blur: 2px;
+@shadow-scheme-color: #444444;
 
 /* Global UI styles ***********************************************************/
 
@@ -57,6 +57,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 .ui-click-text {
 	text-decoration: underline;
 	color: @color-scheme-control-text;
+	cursor: pointer;
 }
 
 
@@ -76,19 +77,13 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	.ui-shadow;
 	
 	&:hover {
-		background-color: @color-scheme-control-hover;		
+		background-color: @color-scheme-control-hover;
 	}
 }
 
 
-.ui-shadow(@x: @shadow-scheme-x, @y: @shadow-scheme-y, @w: @shadow-scheme-width, @c: @color-scheme-shadow) {
-	-moz-box-shadow: @x @y @w @c;
-	-webkit-box-shadow: @x @y @w @c;
-	box-shadow: @x @y @w @c;
-	/* For IE 8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
-	/* For IE 5.5 - 7 */
-	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+.ui-shadow(@x: @shadow-scheme-x, @y: @shadow-scheme-y, @blur: @shadow-scheme-blur, @color: @shadow-scheme-color) {
+	box-shadow: @x @y @blur @color;
 }
 
 
@@ -97,13 +92,6 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 body {
 	font-family: @font-scheme-family;
 	background: @color-scheme-background;
-}
-
-
-#header {
-	font-size: 420%;
-	font-weight: bold;
-	text-align: center;
 }
 
 
@@ -123,10 +111,11 @@ body {
     background-color: @color-scheme-dialog-background;
 	color: @color-scheme-dialog-text;
 	border-color: @color-scheme-dialog-border;
-    margin: 1em;
+	margin: 1em;
     padding: 1em;
     display: none;
     .ui-rounded-corners;
+	.ui-shadow;
 }
 
 
@@ -137,7 +126,23 @@ body {
 }
 
 
-/* Login formatting **************************************************/
+/* Header formatting **********************************************************/
+
+#header {
+	font-weight: bold;
+	text-align: center;
+}
+
+#header_title_bang {
+  display:none;
+}
+
+#header_title_ideateor {
+	font-size: 420%;
+}
+
+
+/* Login formatting **********************************************************/
 
 #login_block {
 	display: none;
@@ -166,11 +171,16 @@ body {
 
 
 #sign_in_error {
+	display: none;
 	font-size: medium;
 	color: @color-scheme-text-error;
-	display: none;
 }
 
+#sign_in_error_sign_up {
+  	display: none;
+	font-size: medium;
+	.ui-click-text;
+}
 
 #sign_in_button {
 	.ui-input-submit;
@@ -191,5 +201,54 @@ body {
 	.ui-click-text;
 }
 
+
+/* User formatting **********************************************************/
+
+#user_header {
+	font-weight: bold;
+	text-align: center;
+}
+
+#user_widget {
+	float: right;
+	text-align: right;
+}
+
+
+#user_controls {
+	text-align: right;
+}
+
+
+.user_controls_button {
+	.ui-click-text;
+	font-size: small;
+	float: right;
+	background-color: @color-scheme-control-foreground;
+	margin: 0 0.25em 0.5em 0.25em;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	.ui-shadow;
+	
+	&:hover {
+		background-color: @color-scheme-control-hover;		
+	}
+}
+
+
+#user_control_home {
+	.user_controls_button;
+}
+
+
+#user_control_logout {
+	.user_controls_button;
+}
+
+#user_control_delete_user {
+	.user_controls_button;
+}
 
 

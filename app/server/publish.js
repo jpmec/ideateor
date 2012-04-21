@@ -15,3 +15,10 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
+
+
+Users = new Meteor.Collection("users");
+
+Meteor.publish('users', function (user_id) {
+  return Users.find(user_id);
+});

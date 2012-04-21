@@ -23,20 +23,71 @@ Template.sign_in.events = {
 			$('#sign_in_form').slideDown(); 
 			$('#sign_up_form').slideUp();}
 		else {
-			//usersModel.signinUser($('#signin-username-input').val(), $('#signin-password-input').val());
+			console.log('calling signinUser')
+			
+			var name = $('#signin_username_input').val();
+			var pwd = Crypto.SHA256($('#signin_password_input').val());
+			$('#signin_password_input').val('')
+						
+			Session.set('user_name', name);
+		    Session.set('user_pwd', pwd);
+			
+			usersModel.signinUser	( name, pwd
+									, function (error, result) {
+										console.log('callback');
+										
+										if (error || !result) {
+											console.log(error);
+											$('#sign_in_error').slideDown();
+											$('#sign_in_error_sign_up').slideDown();
+										}
+										else if (result) {
+											Router.gotoUser(result);
+										}
+									});
 		}
+	},
+	
+	'click #sign_in_error_sign_up' : function () {
+		$('#sign_in_form').slideUp(); 
+		$('#sign_in_error').fadeOut();
+		$('#sign_in_error_sign_up').fadeOut();		
+		$('#sign_up_form').slideDown();
 	}
 };
 
 
 Template.sign_up.events = {
+	
+	// show the sign up form
 	'click #sign_up_text' : function () {
 		$('#sign_in_form').slideUp(); 
 		$('#sign_in_error').fadeOut();
+		$('#sign_in_error_sign_up').fadeOut();		
 		$('#sign_up_form').slideDown();		
 	},
 	
 	'click #sign_up_continue_button' : function () {
-		//usersModel.createUser( $('#signup-username-input').val(), $('#signup-password-input').val() );
+		var name = $('#signup_username_input').val();
+		var pwd = Crypto.SHA256($('#signup_password_input').val());
+		$('#signup_password_input').val('');
+			
+		Session.set('user_name', name);
+		Session.set('user_pwd', pwd);
+		
+		var user = usersModel.createUser	( name, pwd
+											, function(error, result) {
+												if (error) {
+													console.log('error creating user');
+												}
+												else if (result) {
+													console.log('created user ' + result)
+													Session.set('user_id', result);
+													Router.gotoUser(result);
+												}
+												else {
+													console.log('did not create user for ' + username + ' ' + password);
+												}
+											});
 	}
 };
