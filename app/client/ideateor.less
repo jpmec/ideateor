@@ -20,6 +20,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /******** Global UI definitions ********/
 
 @font-scheme-family: fantasy;
+@font-scheme-control-family: monospace;
 
 @color-scheme-background: #FFFFFF;
 @color-scheme-foreground: #F8F8F8;
@@ -61,10 +62,17 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
 
+.ui-input {
+	font-family: @font-scheme-control-family;
+	font-size: x-large;
+	font-weight: normal;
+}
+
+
 .ui-input-submit {
 	text-align: center;
 	vertical-align: middle;
-	font-family: @font-scheme-family;
+	font-family: @font-scheme-control-family;
 	font-size: x-large;
 	font-weight: normal;
 	color: @color-scheme-control-text;
@@ -78,6 +86,25 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	
 	&:hover {
 		background-color: @color-scheme-control-hover;
+	}
+}
+
+
+.ui-button (@font-size: medium){  
+	color: @color-scheme-control-text;
+	cursor: pointer;
+	.ui-shadow;
+	font-size: @font-size;
+	font-family: @font-scheme-control-family;
+	background-color: @color-scheme-control-foreground;
+	margin: 0 0.25em 0 0.25em;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	
+	&:hover {
+		background-color: @color-scheme-control-hover;		
 	}
 }
 
@@ -164,11 +191,14 @@ body {
 
 
 .login-input {
-	font-family: @font-scheme-family;
-	font-size: x-large;
+	.ui-input;
 	margin: 0.5em;
 }
 
+#sign_in_text {
+  display: none;
+  .ui-click-text;
+}
 
 #sign_in_error {
 	display: none;
@@ -186,20 +216,24 @@ body {
 	.ui-input-submit;
 }
 
+#sign_up_text {
+	.ui-click-text;
+}
+
+#sign_up_error_user_exists {
+  display:none;
+}
 
 #sign_up_continue_button {
 	.ui-input-submit;
 }
-
 
 .sign_up_help {
 	font-size: medium;
 }
 
 
-#sign_up_text {
-	.ui-click-text;
-}
+
 
 
 /* User formatting **********************************************************/
@@ -212,6 +246,7 @@ body {
 #user_widget {
 	float: right;
 	text-align: right;
+	margin-bottom: 1em;
 }
 
 
@@ -221,20 +256,8 @@ body {
 
 
 .user_controls_button {
-	.ui-click-text;
-	font-size: small;
-	float: right;
-	background-color: @color-scheme-control-foreground;
-	margin: 0 0.25em 0.5em 0.25em;
-	padding: 0.5em 0.5em 0.5em 0.5em;
-	border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
-	.ui-shadow;
-	
-	&:hover {
-		background-color: @color-scheme-control-hover;		
-	}
+  .ui-button;
+  margin: 0.25em;
 }
 
 
@@ -249,6 +272,174 @@ body {
 
 #user_control_delete_user {
 	.user_controls_button;
+}
+
+
+
+.problems {
+	padding-top: 1em;	
+}
+
+.problems-title {
+	margin-top: 1em;
+	text-align: center;
+	font-size: xx-large;
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+.problem {
+	font-size: x-large;
+	padding: 1em;
+	.ui-rounded-corners;
+}
+
+.problem-text {
+	.ui-click-text;
+}
+
+.problem:hover {
+	background-color: @color-scheme-highlight;
+}
+
+
+#no_problems_help {
+  display: none;
+}
+
+#no_problems_text {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+#problems_controls {
+    margin: 1em 0em 1em 0em;
+    background-color: @color-scheme-control-background;
+    text-align: center;
+    .ui-rounded-corners;
+}
+
+#new_problem {
+    text-align: left;
+    font-size: x-large;
+    padding: 1em;
+}
+
+#new_problem_input {
+	.ui-input;
+    width: 80%;
+}
+
+#new_problem_input_submit {
+	.ui-input-submit;
+}
+
+#new_problem_input_submit_help {
+	display: none;
+}
+
+.increase-problem-rank-button {
+  .ui-button;
+}
+
+.decrease-problem-rank-button {
+  .ui-button;
+}
+
+.delete-problem-button {
+  .ui-button;
+}
+
+.active-problem {
+	margin: 1em;
+	padding: 1em;
+	border-style: dashed;
+}
+
+.active-problem-text {
+	text-align: center;
+	font-size: xx-large;
+	font-weight: bold;
+}
+
+.active-problem-info {
+	float: left;
+}
+
+.active-problem-status {
+	text-align: center;
+	font-size: x-large;
+	font-weight: normal;
+}
+
+
+#active_problem_controls {
+	text-align: center;
+	font-size: medium;
+	font-weight: normal;
+}
+
+
+.ideas {
+	font-size: x-large;
+	font-weight: normal;
+	text-align: left;
+}
+
+
+.ideas-title {
+	font-size: xx-large;
+	font-weight: bold;
+	margin-top: 1em;
+	padding-top: 1em;
+	border-style: dotted none none none;
+}
+
+
+.ideas_title:hover {
+	background-color: @color-scheme-highlight;
+}
+
+
+.idea {
+	font-size: x-large;
+	padding: 1em;
+	.ui-rounded-corners;
+}
+
+
+.idea:hover {
+	background-color: @color-scheme-highlight;
+}
+
+
+.idea_controls {
+	display: none;
+	float: right;
+	text-align: right;
+}
+
+#ideas_controls {
+}
+
+.idea-delete-button, .idea-choose-button {
+	.ui-button(large);
+	margin: 0.25em;
+}
+
+#new_idea_form {
+	text-align: center;
+	padding: 1em;
+}
+
+#new_idea_input {
+	.ui-input;
+	width: 50%;
+}
+
+#new_idea_add_button {
+	.ui-input-submit;
 }
 
 

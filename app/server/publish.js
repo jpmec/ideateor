@@ -22,3 +22,37 @@ Users = new Meteor.Collection("users");
 Meteor.publish('users', function (user_id) {
   return Users.find(user_id);
 });
+
+
+Problems = new Meteor.Collection("problems");
+
+Meteor.publish('problems', function (user_id) {
+  return Problems.find({user_id: user_id}, {sort: {rank: -1}});
+});
+
+
+Ideas = new Meteor.Collection("ideas");
+
+Meteor.publish('ideas', function (problem_id) {
+  return Ideas.find({problem_id: problem_id}, {sort: {rank: 1}});
+});
+
+
+Pros = new Meteor.Collection("pros");
+
+Meteor.publish('pros', function (idea_id) {
+  return Pros.find({idea_id: idea_id});
+});
+
+
+Cons = new Meteor.Collection("cons");
+
+Meteor.publish('cons', function (idea_id) {
+  return Pros.find({idea_id: idea_id});
+});
+
+UserIdeaSearch = new Meteor.Collection("user_idea_search");
+
+Meteor.publish('user_idea_search', function (user_id) {
+    return UserIdeaSearch.find({user_id: user_id});
+});

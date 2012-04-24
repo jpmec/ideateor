@@ -10,23 +10,31 @@
 
 <template name="body_content">
 
-	{{#if test }}
+	{{#if unit_test }}
 		
 		{{> qunit }}
 	
 	{{else }}
 
-			{{#unless user_id }}		
-				{{> header }}
-				{{> login }}
-			{{/unless }}
+		{{#unless user_id }}		
+			{{> header }}
+			{{> login }}
+		{{/unless }}
 			
-			{{#if user_id }}
-				{{> user_widget }}
-				{{> user_header }}
-			{{/if}}
-		
-			{{> about }}
+		{{#if user_id }}
+			{{> user_widget }}
+			{{> user_header }}
+			
+			<div style="clear:both" />
+			
+			{{#if problem_id}}
+				{{> active_problem }}
+			{{else}}
+				{{> problems }}
+			{{/if}}				
+		{{/if}}
+	
+		{{> about }}
 	{{/if}}
 
 </template>
@@ -52,7 +60,7 @@
 	{{#if user_id}}
 		<div id="user_widget">
 		{{> user_controls }}
-		<div>{{user_name}}, got a problem?</div>
+		<div>{{user_display_name}}, got a problem?</div>
 		</div>
 	{{/if}}
 </template>
@@ -60,7 +68,7 @@
 
 <template name="user_info">
 	<div id="user_info">
-	<div>{{username}}</div>
+	<div>{{display.name}}</div>
 	<div>Joined on {{created}}</div>
 	</div>
 </template>
@@ -68,8 +76,231 @@
 
 <template name="user_controls">
 	<div id="user_controls">
-		<div id="user_control_delete_user">Delete account</div>
-        <div id="user_control_logout"><a href=''>Log out</a></div>
         <div id="user_control_home">Home</div>
+        <div id="user_control_logout"><a href=''>Log out</a></div>
+		<div id="user_control_delete_user">Delete account</div>
 	</div>
 </template>
+
+
+<template name="problems">
+	<div class="problems">
+		{{#if no_problems}}
+			<div id="no_problems_text">Congratulations, you have no problems!</div>
+			
+			<div id="no_problems_help_click_text">Would you like some help in creating one?</div>
+			
+			<div id="no_problems_help">
+				{{> about_how_it_works }}
+			</div>
+		{{/if}}
+		
+		{{> problems_controls}}
+		
+		{{#unless no_problems}}
+				<div id="problems_summary">
+					{{> problems_summary}}
+				</div>
+				
+				{{#if is_unsolved_problems}}
+					<div class="problems-title">My Unsolved Problems</div>
+					{{#each unsolved_problems}}
+						{{> problem }}
+					{{/each}}
+				{{/if}}
+
+				{{#if is_other_problems}}
+					<div class="problems-title">Other Problems</div>
+					{{#each other_problems}}
+						{{> problem }}
+					{{/each}}
+				{{/if}}
+				
+				{{#if is_solved_problems}}
+					<div class="problems-title">My Solved Problems</div>
+					{{#each my_solved_problems}}
+						{{> problem }}
+					{{/each}}
+				{{/if}}
+				
+		{{/unless}}
+	</div>
+</template>
+
+
+<template name="problems_summary">
+	<div id="problems_summary">
+		
+	</div>
+</template>
+
+
+<template name="problems_controls">
+	<div id="problems_controls">
+		<div id="new_problem">
+			<input type="text" id="new_problem_input" placeholder="What is your problem?" />
+			<input type="submit" id="new_problem_input_submit" value="?" />
+			<div id="new_problem_input_submit_help">Type a problem (i.e. "What should I do with !deateor?"), then press [?]</div>
+		</div>
+	</div>
+</template>
+
+
+<template name="problem">
+	<div class="problem">
+		<div style="float:right">
+            Rank {{rank}} <span class="increase-problem-rank-button">+</span><span class="decrease-problem-rank-button">-</span>
+			<span class="delete-problem-button">Delete</span>
+		</div>
+		
+		<div class="problem-text" id={{_id}}>(?) {{text}}</div>
+	</div>
+</template>
+
+
+
+
+
+<template name="active_problem">
+    {{#each problems}}
+	<div class="active-problem">
+		<div class="active-problem-info">
+            <div class="active-problem-status">
+            	{{status}}
+            </div>
+
+            <div>
+                posed by {{owner}}
+            </div>
+        </div>
+        
+        <div style="float: right">
+            {{> active_problem_controls }}
+        </div>
+
+		<div class="active-problem-text">
+			(?) {{text}}
+		</div>
+        <div style="clear:both"></div>
+		{{> ideas}}
+		
+		{{> bing_ideas }}
+		
+	</div>
+    {{/each}}
+</template>
+
+
+<template name="active_problem_controls">
+	<div id="active_problem_controls">
+	</div>
+</template>
+
+
+<template name="ideas">
+	<div class="ideas">
+		{{#unless no_ideas}}
+			<div class="ideas-title">Ideas</div>
+			{{#each ideas}}
+				{{> idea}}
+			{{/each}}
+		{{/unless}}
+		{{> ideas_controls}}
+	</div>
+</template>
+
+
+<template name="google_ideas">
+	<div id="google_ideas">
+		<div class="ideas-title">Ideas from Google</div>
+		{{#each ideas}}
+			{{> idea}}
+		{{/each}}	
+	</div>
+</template>
+
+
+<template name="bing_ideas">
+	<div id="bing_ideas">
+		<div class="ideas-title">Ideas from Bing</div>
+		{{> bingSearchTerms }}
+		{{#each bing_ideas}}
+			{{> bing_idea}}
+		{{/each}}
+	</div>
+</template>
+
+
+
+<template name="bing_idea">
+	<div class="bing-idea">
+		{{> bingWebResult }}
+	</div>
+</template>
+
+
+<template name="ideas_controls">
+	<div id="ideas_controls">
+        {{> new_idea_form }}
+	</div>
+</template>
+
+
+<template name="new_idea_form">
+	<div id="new_idea_form">
+		<input type="text" id="new_idea_input" placeholder="What is your idea?" />
+        <input type="submit" id="new_idea_add_button" value="!" />
+	</div>
+</template>
+
+
+<template name="idea">
+	<div class="idea">
+		(!) {{text}}
+		{{> idea_controls }}
+		{{> pros}}
+		{{> cons}}
+	</div>
+</template>
+
+
+<template name="idea_controls">
+	<div class="idea_controls">
+		<div class="idea-choose-button">Choose</div>
+		<div class="idea-delete-button">Delete</div>
+	</div>
+</template>
+
+<template name="pros">
+	<div class="pros">
+	Pros
+		{{#each pros}}
+			{{> pro}}
+		{{/each}}
+	</div>
+</template>
+
+
+<template name="pro">
+	<div class="pro">
+		<span class="pro">(+) {{text}}</span>
+	</div>
+</template>
+
+
+<template name="cons">
+	<div class="cons">
+	Cons
+		{{#each cons}}
+			{{> con}}
+		{{/each}}
+	</div>
+</template>
+
+
+<template name="con">
+	<div class="con">
+		<span class="con">(-) {{text}}</span>
+	</div>
+</template>
+

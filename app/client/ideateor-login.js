@@ -18,16 +18,23 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 Template.sign_in.events = {
+	'click #sign_in_text' : function () {
+		$('#sign_in_form').slideDown();
+		$('#sign_in_text').slideUp();
+		$('#sign_up_text').slideDown();
+		$('#sign_up_form').slideUp();	
+	},
+	
 	'click #sign_in_button' : function () {
 		if ($('#sign_in_form').css('display') == 'none') {
 			$('#sign_in_form').slideDown(); 
 			$('#sign_up_form').slideUp();}
+			
 		else {
 			console.log('calling signinUser')
 			
 			var name = $('#signin_username_input').val();
 			var pwd = Crypto.SHA256($('#signin_password_input').val());
-			$('#signin_password_input').val('')
 						
 			Session.set('user_name', name);
 		    Session.set('user_pwd', pwd);
@@ -49,6 +56,7 @@ Template.sign_in.events = {
 	},
 	
 	'click #sign_in_error_sign_up' : function () {
+		$('#sign_in_text').slideDown();
 		$('#sign_in_form').slideUp(); 
 		$('#sign_in_error').fadeOut();
 		$('#sign_in_error_sign_up').fadeOut();		
@@ -57,10 +65,13 @@ Template.sign_in.events = {
 };
 
 
+
+
 Template.sign_up.events = {
 	
 	// show the sign up form
 	'click #sign_up_text' : function () {
+		$('#sign_in_text').slideDown();
 		$('#sign_in_form').slideUp(); 
 		$('#sign_in_error').fadeOut();
 		$('#sign_in_error_sign_up').fadeOut();		
@@ -68,14 +79,39 @@ Template.sign_up.events = {
 	},
 	
 	'click #sign_up_continue_button' : function () {
+		
+		console.log('continuing to sign in');
+
 		var name = $('#signup_username_input').val();
+		
+		if (!name)
+			return;
+
+//		if (usersModel.isUser({name: name})) {
+//			// show error
+//			$('#sign_up_error_user_exists').slideDown();
+//		}
+		
 		var pwd = Crypto.SHA256($('#signup_password_input').val());
-		$('#signup_password_input').val('');
-			
+		
+		if (!pwd) {
+			//$('#sign_up_error_bad_password).slideDown();
+			return;
+		}
+		
+		var display_name = $('#signup_display_name_input').val();
+		
+		if (!display_name) {
+			$('#sign_up_error_bad_display_name').slideDown();
+			return;
+		}
+		
+		console.log('signing up ' + name + ' as ' + display_name);
+		
 		Session.set('user_name', name);
 		Session.set('user_pwd', pwd);
 		
-		var user = usersModel.createUser	( name, pwd
+		var user = usersModel.createUser	( {name: name, pwd: pwd, display: {name: display_name}}
 											, function(error, result) {
 												if (error) {
 													console.log('error creating user');
@@ -83,6 +119,7 @@ Template.sign_up.events = {
 												else if (result) {
 													console.log('created user ' + result)
 													Session.set('user_id', result);
+													Session.set('display_name', display_name);		
 													Router.gotoUser(result);
 												}
 												else {

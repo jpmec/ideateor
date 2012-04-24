@@ -17,7 +17,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var require = __meteor_bootstrap__.require;
 var crypto = require('crypto');
-
+var http = require("http");
 
 Meteor.startup(function () {
     
@@ -53,13 +53,13 @@ Meteor.startup(function () {
 			if (Users.findOne({name: username}))
 				throw new Meteor.Error(1, "User name already exists.");
 		
-			var user = Users.findOne({name: username, cred: password});
+			var user = Users.findOne({private: {name: username, cred: password}});
 
 			if (user)
 				return user._id;
 			else {
 				var timestamp = new Date();
-				return Users.insert({name: username, cred: password, created: timestamp});
+				return Users.insert({created: timestamp, private: {name: username, cred: password}, public:{name: ''}});
 			}
 		},
         
@@ -73,7 +73,7 @@ Meteor.startup(function () {
             
 //          console.log('ciph = ' + ciph);            
             
-			var user = Users.findOne({name: username, cred: password});
+			var user = Users.findOne({private: {name: username, cred: password}});
 
 			if (user) {
                 console.log('signinUser ' + username + ' ' + password);                
@@ -88,7 +88,7 @@ Meteor.startup(function () {
         deleteUser: function (user_id, password) {
             console.log('deleting user ' + user_id + ' ' + password);
             
-            var user = Users.findOne({_id: user_id, cred: password});
+            var user = Users.findOne({_id: user_id, private: {cred: password}});
             
 			if (user) {
                 console.log('deleteUser ' + username + ' ' + password);                
@@ -99,7 +99,67 @@ Meteor.startup(function () {
                 console.log('deleteUser error ' + username + ' ' + password);
 				return false;
 			}            
+        },
+        
+        
+		isProblem: function (problem_id) {
+					
+			var problem = Problems.findOne(problem_id);
+			
+			console.log(problem);
+			
+			if (problem) {
+                console.log(problem_id + " is a problem");
+				return {user_id: problem.user_id, problem_id: problem_id};
+			}
+			else {
+                console.log(problem_id + " is not a problem");
+				return false;
+			}
+		},
+        
+        
+        searchBing: function (user_id, text) {
+            Fiber(function(){
+                console.log('searching Bing for "' + text + '"');
+                  
+                var options = {
+                  host: 'api.search.live.net',
+                  port: 80,
+                  path: "/json.aspx?AppId=8A4F5D41C743520611B5366C4CB5E9113ADBE9E8&Query='" + text + "'&sources=web",
+                  cache: true
+                };
+                                
+                console.log('http://' + options.host + options.path);
+
+                // clear old search results
+                UserIdeaSearch.remove({user_id: user_id, host: options.host});
+                UserIdeaSearch.insert({user_id: user_id, host: options.host, text: text, result: []});
+
+                // request and cache data here
+                http.get(options, function(res) {
+                  Fiber( function() {
+                    console.log("Got response: " + res.statusCode);
+                
+                    res.setEncoding('UTF8');
+                  
+                    res.on('data', function(chunk) {
+                        Fiber(function() {
+                          UserIdeaSearch.update({user_id: user_id}, {$push: {result: chunk}});
+                        }).run();
+                    });
+                 
+//                  res.on('end', function () {
+//                    console.log('reached end');
+//                    console.log(data);
+                //    UserIdeaSearch.insert({user_id: user_id, text: text, result: data});
+//                  });
+                  
+                //}).on('error', function(e) {
+                //  console.log("Got error: " + e.message);
+                  }).run();
+                });
+            }).run();
         }
-		
     });
 });

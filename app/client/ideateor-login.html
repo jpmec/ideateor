@@ -12,6 +12,9 @@
 
 <template name="sign_in">
 	<div id="sign_in">
+		<div id="sign_in_text">
+			Sign In
+		</div>
 		<div id="sign_in_form">
 			<div><input type="text" id="signin_username_input" class="login-input" placeholder="user name" /></div>
 			<div><input type="password" id="signin_password_input" class="login-input" placeholder="pass phrase" /></div>		
@@ -21,9 +24,9 @@
 			<div id="sign_in_error_sign_up">
 				(!) Sign up to create a new account.
 			</div>
-		</div>
-		<div class="login_input_button">
-			<input type="submit" id="sign_in_button" value="Sign In" />
+			<div class="login_input_button">
+				<input type="submit" id="sign_in_button" value="Sign In" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -35,14 +38,24 @@
 			Sign Up
 		</div>
 		<div id="sign_up_form" style="display:none">
+
+			<div class="sign_up_help">
+			<p><b>Welcome to !deateor,<br/> a tool for discovering new ideas!</b></p>
+			</div>
+			<div><input type="text" id="signup_display_name_input" class="login-input" placeholder="What is your name?" /></div>
+			
+			<div class="sign_up_help">
+			<p>Type a user name and pass phrase below<br>(this is the user name and pass phrase you will use to sign in)</br> and click 'Continue'.</p>
+			</div>
 			<div><input type="text" id="signup_username_input" class="login-input" placeholder="user name" /></div>
+			<div id="sign_up_error_user_exists" class="sign_up_help">There is already a user with that name, please choose another user name.</div>
 			<div><input type="password" id="signup_password_input" class="login-input" placeholder="pass phrase" /></div>	
+			
 			<div class="login_input_button">
 				<input type="submit" id="sign_up_continue_button" value="Continue" />
 			</div>
+			
 			<div class="sign_up_help">
-				<p><b>Welcome to !deateor,<br/> a tool for discovering new ideas!</b></p>
-				<p>Type a user name and password and click 'Continue'.</p>
 				<p>Don't worry, !deateor is free to use,<br>
 				and we don't sell your information.</p>
 				<p>Learn more about !deateor<br>by clicking on 'About !deateor' below.</p>
